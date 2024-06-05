@@ -1,0 +1,45 @@
+<template>
+    <lightning-card title={formTitle}>
+        <div class="slds-var-p-around_small">    
+            <lightning-combobox 
+            class="validateMe"
+            required="true" 
+            message-when-value-missing="Please select parent account" 
+            name="parentacc" 
+            label="Select Parent Account" 
+            options={parentOptions} 
+            placeholder="Select An Account" 
+            onchange={Handle}
+            ></lightning-combobox>
+            <lightning-input 
+            class="validateMe"
+            message-when-too-short="Minimum length of account name is 2" 
+            message-when-too-long="Maximum length of Account Name is 60" 
+            min-length="2" 
+            max-length="60" 
+            placeholder="Enter Account Name" 
+            onchange={Handle} 
+            label="Account Name" 
+            name="accName" 
+            type="text" 
+            required="true" 
+            message-when-value-missing="Please enter the account name"
+            ></lightning-input>
+            <lightning-input type="date" name="slaExpDate" onchange={Handle} label="SLA Expiration Date"></lightning-input>
+            <template lwc:if={option.data}>
+                <lightning-radio-group onchange={Handle} label="SLA Type" name="slaType" options={option.data.values} type="button"></lightning-radio-group>
+            </template>
+            <lightning-slider label="Number of Locations" onchange={Handle} name="sliderVal" value={val} min="1" max="50" step="1"></lightning-slider><br>
+            <lightning-input-rich-text
+            label="Description"
+            name="description"
+            disabled-categories="FORMAT_FONT"
+            value={discription}
+            onchange={Handle}
+            ></lightning-input-rich-text>
+        </div>
+        <div class="slds-var-p-around_small">
+            <lightning-button label="Save" name="save" variant="brand" onclick={Save}></lightning-button>
+        </div>
+    </lightning-card>
+</template>
