@@ -63,22 +63,18 @@ export default class CreateRecordForm extends NavigationMixin(LightningElement) 
         console.log('Value out : ',value);           
     }
     Save(){
-        console.log('Update Success1',this.recordId);
         let fields={};
         fields[ParentId.fieldApiName] = this.selectedAcc; 
         fields[Name.fieldApiName] = this.accName; 
         fields[SLAExpirationDate.fieldApiName] = this.slaExpDate; 
         fields[SLA.fieldApiName] = this.slaType; 
-        console.log('Update Success2');
         fields[NumberofLocations.fieldApiName] = this.val; 
         fields[Description.fieldApiName] = this.discription; 
         if(this.recordId){
-            console.log('Update Success3');
             fields[AccountId.fieldApiName] = this.recordId;
             let recordToBeUpdate = {
                 fields: fields,
             };
-            console.log('Update Success4', this.recordId);
             updateRecord(recordToBeUpdate).then(res=>{
                 console.log('Update Success');
                 this.showToast();
@@ -129,6 +125,5 @@ export default class CreateRecordForm extends NavigationMixin(LightningElement) 
                 'Record is updated successfully',
         });
         this.dispatchEvent(event);
-        console.log('hi');
     }
 }
