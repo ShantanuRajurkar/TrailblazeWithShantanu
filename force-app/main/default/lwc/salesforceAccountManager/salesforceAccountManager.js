@@ -129,5 +129,6 @@ export default class CreateRecordForm extends NavigationMixin(LightningElement) 
                 'Record is updated successfully',
         });
         this.dispatchEvent(event);
+        console.log('hi');
     }
 }
