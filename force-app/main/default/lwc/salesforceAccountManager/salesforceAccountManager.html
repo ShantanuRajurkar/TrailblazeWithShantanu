@@ -40,6 +40,9 @@
         </div>
         <div class="slds-var-p-around_small">
             <lightning-button label="Save" name="save" variant="brand" onclick={Save}></lightning-button>
+            <template lwc:if={isDelete}>
+                <lightning-button label="Delete Record" variant="destructive" onclick={Delete}></lightning-button>
+            </template>    
         </div>
     </lightning-card>
 </template>

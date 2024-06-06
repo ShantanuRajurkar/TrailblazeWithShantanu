@@ -10,7 +10,7 @@ import Name from '@salesforce/schema/Account.Name';
 import NumberofLocations from '@salesforce/schema/Account.NumberofLocations__c'
 import Description from '@salesforce/schema/Account.Description';
 import SLAExpirationDate from '@salesforce/schema/Account.SLAExpirationDate__c';
-import { createRecord, updateRecord } from 'lightning/uiRecordApi';
+import { createRecord, deleteRecord, updateRecord } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
 export default class CreateRecordForm extends NavigationMixin(LightningElement) {
     @api recordId;
@@ -106,6 +106,22 @@ export default class CreateRecordForm extends NavigationMixin(LightningElement) 
             }       
         }       
     }
+    Delete(){
+        deleteRecord(this.recordId).then(()=>{
+            const pageRef1={
+                type: 'standard__objectPage',
+                attributes: {
+                    objectApiName: 'Account',
+                    actionName: 'list',
+                },state: {
+                    filterName: 'Recent'
+              }
+            };
+            this[NavigationMixin.Navigate](pageRef1)
+        }).catch(err=>{
+            alert('Error : ',err.body.message);
+        });
+    }
     validateInput(){
         let fields=Array.from(this.template.querySelectorAll('.validateMe'));
         let isValid=fields.every(curritem => curritem.checkValidity());
@@ -118,11 +134,19 @@ export default class CreateRecordForm extends NavigationMixin(LightningElement) 
             return 'Create Account';
         }
     }
+    get isDelete(){
+        if(this.recordId){
+            return true;
+        }else{
+            return false;
+        }
+    }
     showToast() {
         const event = new ShowToastEvent({
             title: 'Success',
             message:
                 'Record is updated successfully',
+            variant: 'success'    
         });
         this.dispatchEvent(event);
     }
