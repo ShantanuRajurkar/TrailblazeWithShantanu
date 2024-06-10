@@ -27,7 +27,11 @@ export default class UpdateUsingImperativeApex extends LightningElement {
             recordId: this.recordId,
             newPhone: this.accPhone,
         }).then(res=>{
-            notifyRecordUpdateAvailable([{recordId: this.recordId}]);
+            notifyRecordUpdateAvailable([{recordId: this.recordId}]).then(()=>{
+                console.log('UI Refresh Successfully');
+            }).catch(error=>{
+                console.log('Error : ', error);
+            });
             console.log('Record Updated Successfully');
         }).catch(error=>{
             console.log('Record Update Failed',error);
