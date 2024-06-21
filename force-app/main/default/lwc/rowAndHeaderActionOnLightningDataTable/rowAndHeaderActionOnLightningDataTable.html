@@ -1,5 +1,5 @@
 <template>
-    <lightning-card title="Row And Header Actions On Lightning Data Table">
+    <lightning-card title="Row And Header Actions On Lightning Data Table" icon-name="utility:database">
         <template lwc:if={displayData}>
             <lightning-datatable key-field="Id" columns={columns} data={accData} onrowaction={rowActionHandler} onheaderaction={headerActionHandler}></lightning-datatable>
         </template>
