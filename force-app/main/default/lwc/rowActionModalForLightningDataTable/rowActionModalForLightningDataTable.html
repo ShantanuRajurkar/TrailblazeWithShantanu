@@ -1,0 +1,26 @@
+<template>
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <lightning-button-icon 
+            icon-name="utility:close"
+            title="Cancel and Close" 
+            onclick={closeModalHandler}
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            size="large"
+            ></lightning-button-icon>
+
+        <div class="slds-modal__header">
+        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate" tabindex="-1">{ModalHeader}</h1>
+            </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <template lwc:if={isViewMode}>
+                        <lightning-record-form record-id={recordInputId} object-api-name="Account" layout-type="Compact" mode="readOnly"></lightning-record-form>
+                    </template>
+                    <template lwc:elseif={isEditMode}>
+                        <lightning-record-form record-id={recordInputId} onsuccess={successHandler} object-api-name="Account" layout-type="Compact" mode="edit"></lightning-record-form>
+                    </template>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

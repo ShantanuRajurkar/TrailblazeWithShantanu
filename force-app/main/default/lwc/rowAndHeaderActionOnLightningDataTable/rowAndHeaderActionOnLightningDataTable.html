@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Row Actions On Lightning Data Table">
+        <template lwc:if={displayData}>
+            <lightning-datatable key-field="Id" columns={columns} data={accData} onrowaction={rowActionHandler} onheaderaction={headerActionHandler}></lightning-datatable>
+        </template>
+        <template lwc:if={showModal}>
+            <c-row-actions-modal-for-lightning-data-table record-input-id={selectedRecord} is-view-mode={viewMode} is-edit-mode={editMode} onclosemodal={closeModal}></c-row-actions-modal-for-lightning-data-table>
+        </template>
+    </lightning-card>
+</template>
