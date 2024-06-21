@@ -1,5 +1,5 @@
 import { LightningElement, wire, api } from 'lwc';
-import getAnnualAccountList from '@salesforce/apex/GetAccountList.getAnnualAccountList';
+import getAccountRecordsForSalesforceAccountManager from '@salesforce/apex/AccountDetails.getAccountRecordsForSalesforceAccountManager';
 import { getObjectInfo, getPicklistValues } from 'lightning/uiObjectInfoApi';
 import SLA from '@salesforce/schema/Account.SLA__c';
 import ParentId from '@salesforce/schema/Account.ParentId';
@@ -27,7 +27,7 @@ export default class CreateRecordForm extends NavigationMixin(LightningElement) 
         recordTypeId : '$accObjectInfo.data.defaultRecordTypeId',
         fieldApiName: SLA,
     })option;
-    @wire(getAnnualAccountList)options({data,error}){
+    @wire(getAccountRecordsForSalesforceAccountManager)options({data,error}){
         this.parentOptions=[];
         if(data){
             this.parentOptions=data.map((curitem)=>({
