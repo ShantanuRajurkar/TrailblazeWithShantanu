@@ -13,11 +13,15 @@ const allAction = [
 ]
 const columns=[
     {label: 'Name', fieldName: 'Name', hideDefaultActions: true},
-    {label: 'Phone', fieldName: 'Phone', hideDefaultActions: true},
+    {label: 'Phone', fieldName: 'Phone', hideDefaultActions: true, cellAttributes :{
+        alignment: 'center'
+    }},
     {label: 'Account Number', fieldName: 'AccountNumber', type: 'number', hideDefaultActions: true, cellAttributes :{
         alignment: 'center'
     }},
-    {label: 'Type', fieldName: 'Type', hideDefaultActions: true},
+    {label: 'Type', fieldName: 'Type', hideDefaultActions: true, cellAttributes :{
+        alignment: 'center'
+    }},
     {label: 'Rating', fieldName: 'Rating', hideDefaultActions: true, actions: allAction, cellAttributes :{
         alignment: 'center'
     }},
