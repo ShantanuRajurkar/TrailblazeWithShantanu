@@ -28,4 +28,32 @@ public with sharing class AccountDetails {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled(cacheable=true)
+    public static list<Account> loadDataById(){
+        try {
+            return [SELECT Id, Name, Industry, Rating FROM Account ORDER BY Name, Id LIMIT 100 ];            
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static list<Account> loadMoreData(String lastName, string lastId){
+        try {
+            return [SELECT Id, Name, Industry, Rating FROM Account  WHERE (Name > :lastName) OR (Name = :lastName AND Id > :lastId) ORDER BY Name, Id LIMIT 100];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+    
+    @AuraEnabled(cacheable=true)
+    public static Integer countOfAccounts(){
+        try {
+            AggregateResult agr = [SELECT count(Id) recordCount FROM Account];
+            return (Integer)agr.get('recordCount');
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }
