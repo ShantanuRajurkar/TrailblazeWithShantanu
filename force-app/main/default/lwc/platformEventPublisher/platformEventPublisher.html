@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Change the Case Status">
+        <div class="slds-var-p-around_small">
+            <lightning-combobox label="Select The Status" placeholder="Choose Status" onchange={HandleChange} options={picklistStatusValues}></lightning-combobox>
+        </div>
+        <div class="slds-var-p-around_small">    
+            <lightning-button label="Change Status" onclick={HandleClick} variant="brand"></lightning-button>
+        </div>
+    </lightning-card>
+</template>
