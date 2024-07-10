@@ -1,0 +1,51 @@
+<apex:page Controller="PlatformEventOppPublisherVFController" docType="html-5.0">
+    <style>
+        /* Center the entire page content */
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+            background-color: #f2f2f2; /* Light background color for better visibility */
+        }
+        .page-block {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    
+    <div class="center-container">
+        <apex:form>
+            <div class="page-block">
+                <apex:pageBlock title="Enter Opportunity Info">
+                    <apex:pageBlockSection>
+                        <apex:input label="Opportunity Name" value="{!oppName}" required="true"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection>
+                        <apex:input label="Amount" value="{!oppAmount}" required="true"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection>
+                        <apex:selectList value="{!opp.LeadSource}" size="1" label="Lead Source" required="true">
+                            <apex:selectOptions value="{!leadSourceOptions}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection>
+                        <apex:selectList value="{!opp.StageName}" size="1" label="Stage Name" required="true">
+                            <apex:selectOptions value="{!leadStageOptions}"/>
+                        </apex:selectList>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection>
+                        <apex:input label="Select Date" value="{!oppDate}" type="date" required="true"/>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection>
+                        <apex:pageBlockSectionItem>
+                            <apex:commandButton value="Submit" action="{!submit}"/>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </div>
+        </apex:form>
+    </div>
+</apex:page>
