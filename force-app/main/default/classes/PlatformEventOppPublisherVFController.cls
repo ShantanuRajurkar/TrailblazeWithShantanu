@@ -27,7 +27,6 @@ public class PlatformEventOppPublisherVFController {
     }
     public void submit(){
         system.debug('Lead Source : '+ opp.LeadSource+' Name : '+ oppName);
-        //PlatFormEventPublisherForOpportunity obj = new PlatFormEventPublisherForOpportunity();
         PlatformEventOppPublisher.PlatformEventPublisherMethod(oppName, oppAmount, oppDate, opp.LeadSource, opp.StageName);
         ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.INFO, 'Opportunity submitted successfully!'));
         emptyData();
