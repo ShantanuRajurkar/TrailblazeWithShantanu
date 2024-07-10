@@ -57,7 +57,6 @@ export default class PlatformEventOppSubscriber extends LightningElement {
             fields[Amount.fieldApiName]=oppAmount;
             fields[StageName.fieldApiName]=oppStageName;
             const recordInput={apiName: 'Opportunity',fields};
-            console.log('Hi');
             createRecord(recordInput).then(res=>{
                 const event = new ShowToastEvent({
                     title : 'Success',
