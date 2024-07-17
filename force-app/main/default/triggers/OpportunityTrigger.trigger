@@ -1,5 +1,5 @@
 trigger OpportunityTrigger on Opportunity (after insert, after update, after delete) {
-    /* When opportunity get Deleted, Inserted or Updated, the field on the account (Total_Opportunities__c) which has total number of related opportunities, will get updated accordingly */
+    /* When opportunity get Deleted, Inserted or Updated, the field on the account (Total_Opportunities__c) which has total number of 'Closed Won' related opportunities, will get updated accordingly */
     if(Trigger.isAfter){
         set<Id> accIds = new set<Id>();
         if(Trigger.isInsert || Trigger.isUpdate){
