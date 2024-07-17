@@ -36,7 +36,10 @@ trigger OpportunityTrigger on Opportunity (after insert, after update, after del
                 }
             }
             list<Account> accToUpdate = new list<Account>();
-            for(Account acc : [SELECT Id, Total_Opportunities__c, (SELECT Id, Name FROM Opportunities) FROM Account WHERE Id IN :accIds WITH SECURITY_ENFORCED]){
+            for(Account acc : [
+                SELECT Id, Total_Opportunities__c, (SELECT Id, Name, StageName FROM Opportunities WHERE StageName = 'Closed Won')
+                FROM Account WHERE Id IN :accIds WITH SECURITY_ENFORCED]
+                ){
                 acc.Total_Opportunities__c = acc.Opportunities.size();
                 system.debug('Total oportunity : '+acc.Total_Opportunities__c+' Opp Name :'+acc.Opportunities);
                 accToUpdate.add(acc);
