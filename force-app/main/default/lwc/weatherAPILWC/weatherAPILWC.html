@@ -1,0 +1,48 @@
+<template>
+    <lightning-card title={getCityName}>
+        <lightning-layout>
+            <lightning-layout-item size="6" medium-device-size="4" padding="around-small">
+                <lightning-combobox name="cities"
+                    label="Cities"
+                    value={value}
+                    placeholder="--Select--"
+                    options={options}
+                    onchange={handleChange} >
+                </lightning-combobox>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+                <lightning-layout-item size="3" medium-device-size="4" padding="around-small">
+                    <lightning-card icon-name="standard:topic" title="Current Temperature">
+                        <div class="slds-align_absolute-center color-blue">
+                            <template if:true={result}>
+                                {getConvertedTemp}
+                            </template>
+                        </div>
+                    </lightning-card>
+                </lightning-layout-item>
+                <lightning-layout-item size="3" medium-device-size="4" padding="around-small">
+                    <lightning-card icon-name="utility:flow" title="Current Wind Speed">
+                        <div class="slds-align_absolute-center color-grey">
+                            <template if:true={result}>
+                                {getCurrentWindSpeed}
+                            </template>
+                        </div>
+                    </lightning-card>
+                </lightning-layout-item>
+                <lightning-layout-item size="3" medium-device-size="4" padding="around-small">
+                    <lightning-card icon-name="standard:calibration" title="Precipitation">
+                        <div class="slds-align_absolute-center color-green">
+                            <template if:true={result}>
+                                {getCurrentPrecip}
+                            </template>
+                        </div>
+                    </lightning-card>
+                </lightning-layout-item>
+            </lightning-layout>
+        <lightning-map
+            map-markers={mapMarkers}
+            zoom-level={zoomLevel}>
+        </lightning-map>
+    </lightning-card>
+</template>
