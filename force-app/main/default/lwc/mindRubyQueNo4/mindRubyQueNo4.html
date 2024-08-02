@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Fetch Visitors">
+        <lightning-combobox 
+            label="Country"
+            placeholder="Select The Country"
+            options={CountryOptions}
+            onchange={handleCountryChange}
+        ></lightning-combobox>
+        <lightning-combobox 
+            label="Year"
+            placeholder="Select The Year"
+            options={YearOptions}
+            onchange={handleYearChange}
+        ></lightning-combobox>
+        <lightning-button label="Fetch" onclick={handleClick} variant="brand"></lightning-button>
+    </lightning-card>
+</template>

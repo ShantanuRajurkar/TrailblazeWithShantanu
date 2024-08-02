@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="Order Summary">
+        <div class="slds-p-around_medium">
+            <lightning-spinner if:true={isLoading} alternative-text="Loading"></lightning-spinner>
+
+            <template if:false={isLoading}>
+                <lightning-layout vertical-align="start">
+                    <lightning-layout-item>
+                        <p><strong>Order Number:</strong> {orderDetails.orderNumber}</p>
+                        <p><strong>Customer Name:</strong> {orderDetails.customerName}</p>
+                        <p><strong>Total Quantity:</strong> {orderDetails.totalQuantity}</p>
+                    </lightning-layout-item>
+                </lightning-layout>
+                
+                <lightning-datatable
+                    key-field="id"
+                    data={orderDetails.orderItems}
+                    columns={columns}
+                    hide-checkbox-column="true">
+                </lightning-datatable>
+            </template>
+        </div>
+    </lightning-card>
+</template>

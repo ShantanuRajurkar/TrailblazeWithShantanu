@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Mind Ruby Question 3">
+        <lightning-combobox
+            label="Stage Name"
+            placeholder="Select Stage Name"
+            options={options}
+            onchange={handleChange} >
+        </lightning-combobox>
+    </lightning-card>
+    <lightning-datatable key-field="Id" columns={columns} data={OppData.data} max-row-selection="1" onrowaction={navigateToRecordViewPage}></lightning-datatable>
+</template>
