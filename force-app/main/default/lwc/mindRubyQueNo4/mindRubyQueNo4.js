@@ -4,6 +4,7 @@ export default class MindRubyQueNo4 extends LightningElement {
     JSONBody='';
     selectedCountry;
     selectedYear;
+    visitors='';
     CountryOptions = [
         {
             value: 'Pakistan',
@@ -20,15 +21,15 @@ export default class MindRubyQueNo4 extends LightningElement {
     ];
     YearOptions = [
         {
-            value: '2016',
+            value: '_2016',
             label: '2016',
         },
         {
-            value: '2017',
+            value: '_2017',
             label: '2017',
         },
         {
-            value: '2018',
+            value: '_2018',
             label: '2018',
         },
     ];
@@ -49,9 +50,17 @@ export default class MindRubyQueNo4 extends LightningElement {
     handleClick(event){
         console.log('type',typeof this.JSONBody);
         let JSONObj = JSON.parse(this.JSONBody);
-        console.log('1Object : ', JSONObj.);
+        console.log('1Object : ', JSONObj.desc);
+        console.log('2Object : ', JSON.stringify(JSONObj.records));
+        JSONObj.records.forEach(element => {
+            if(this.selectedCountry==element.country){
+                console.log('Loop : ',JSON.stringify(element));
+                if(element.hasOwnProperty(this.selectedYear)){
+                    this.visitors=JSON.stringify(element[this.selectedYear]);
+                    console.log('JSONBody : ', this.visitors);
+                }
+            }
+        })
         console.log('JSONObj Type : ', typeof JSONObj);
-        const plainObject = Object.assign({}, JSONObj);
-        console.log(plainObject);
     }
 }

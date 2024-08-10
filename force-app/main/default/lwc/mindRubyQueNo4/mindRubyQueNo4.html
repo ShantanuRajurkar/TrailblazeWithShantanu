@@ -11,7 +11,10 @@
             placeholder="Select The Year"
             options={YearOptions}
             onchange={handleYearChange}
-        ></lightning-combobox>
-        <lightning-button label="Fetch" onclick={handleClick} variant="brand"></lightning-button>
+        ></lightning-combobox><br>
+        <lightning-button label="Fetch" onclick={handleClick} variant="brand"></lightning-button><br>
+        <div class="slds-p-around_medium">
+            Total Number Of Visitors : <lightning-formatted-text value={visitors}></lightning-formatted-text>
+        </div> 
     </lightning-card>
 </template>
