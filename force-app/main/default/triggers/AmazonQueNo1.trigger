@@ -18,21 +18,17 @@ trigger AmazonQueNo1 on Case (after update) {
     }
     
     map<Id, set<String>> accIdLastName = new Map<Id, set<String>>();
-    system.debug('Out of for loop');
     for(Contact con : [SELECT Id, AccountId, LastName FROM Contact WHERE AccountId IN :reqAccIds]){
         set<String> temp = new set<String>();
-        system.debug('Inside of for loop');        
         if(accIdLastName.containskey(con.AccountId) ==false){
             temp.add(con.LastName);
             accIdLastName.put(con.AccountId, temp);
-            system.debug('Last Name '+accIdLastName);
         }else{
             temp = accIdLastName.get(con.AccountId);
             temp.add(con.LastName);    
         }
         accIdLastName.put(con.AccountId, temp);
     }
-    system.debug('Out of for loop2');
     List<Contact> conList = new list<Contact>();
     for(Case cs : [SELECT Id, AccountId, Subject FROM Case WHERE Id IN :reqCasesIds]){
         set<String> temp = accIdLastName.get(cs.AccountId);
