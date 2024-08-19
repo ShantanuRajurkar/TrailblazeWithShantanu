@@ -1,4 +1,4 @@
-trigger TriggerOnOrderProduct on OrderItem (after insert) {
+trigger LumioPartnersQueNo1 on OrderItem (after insert) {
     set<Id> orderIds = new set<Id>();
     for(OrderItem ot : Trigger.new){
         if(ot.OrderId!=null){

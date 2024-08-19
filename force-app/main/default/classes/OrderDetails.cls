@@ -1,4 +1,4 @@
-public with sharing class OrderSummaryController {
+public with sharing class OrderDetails {
     @AuraEnabled(cacheable=true)
     public static OrderWrapper getOrderDetails(Id orderId) {
         Order order = [

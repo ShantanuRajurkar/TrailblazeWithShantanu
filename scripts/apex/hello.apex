@@ -11,3 +11,7 @@ System.debug('My name is ' + tempvar);
 
 OpportunityBatchApexClass obj = new OpportunityBatchApexClass();
 Database.executeBatch(obj, 200);
+
+SalesforceToWhatsAppCallout.SalesforceWACallout();
+
+SendMessagesFromSalesforceToWhatsApp.sentTextMessage('My Name Is Shan', '919420181774');
