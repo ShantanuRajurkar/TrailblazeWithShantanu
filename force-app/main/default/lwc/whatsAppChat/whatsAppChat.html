@@ -1,0 +1,48 @@
+<template>
+    <lightning-card>
+      <div if:false={flag} class="slds-m-around_small">
+         <p>
+            <lightning-input required="true" message-when-value-missing="Please enter the phone number of customer to open the chat" type="text" placeholder="Enter customer phone number..." label="Enter Phone Number" variant="label-hidden" onchange={handlePhoneChange}></lightning-input>
+         </p>
+         <p class="slds-m-top_medium">
+            <lightning-button label="Open Chat" variant="brand" onclick={handleChat}></lightning-button>
+         </p>
+      </div>
+        <section if:true={flag} role="log" class="slds-chat">
+            <ul class="slds-chat-list">
+                <template for:each={messages} for:item="item" for:index="index">
+                    <li if:false={item.Outgoing__c} key={item.id} class="slds-chat-listitem slds-chat-listitem_outbound">
+                        <div class="slds-chat-message">
+                           <div class="slds-chat-message__body">
+                              <div class="slds-chat-message__text slds-chat-message__text_outbound">
+                                 <span>
+                                    <lightning-formatted-rich-text value={item.Message_Content__c}></lightning-formatted-rich-text>
+                                 </span>
+                              </div>
+                              <div class="slds-chat-message__meta" aria-label="said Amber Cann at 5:23 PM">{item.Customer_Name__c}</div>
+                           </div>
+                        </div>
+                     </li>
+                     <li if:true={item.Outgoing__c} key={item.id} class="slds-chat-listitem slds-chat-listitem_inbound">
+                        <div class="slds-chat-message">
+                           <span aria-hidden="true" class="slds-avatar slds-avatar_circle slds-chat-avatar">
+                           <abbr class="slds-avatar__initials slds-avatar__initials_inverse" title="Andy Martinez">AM</abbr>
+                           </span>
+                           <div class="slds-chat-message__body">
+                              <div class="slds-chat-message__text slds-chat-message__text_inbound">
+                                 <span>
+                                    <lightning-formatted-rich-text value={item.Message_Content__c}></lightning-formatted-rich-text>
+                                 </span>
+                              </div>
+                              <div class="slds-chat-message__meta" aria-label="said Andy Martinez at 5:29 PM">{item.Agent_Name__c}</div>
+                           </div>
+                        </div>
+                     </li>
+                </template>
+            </ul>
+            <div class="slds-m-around_small">
+                <lightning-input type="text" placeholder="type here" label="Send a Message" variant="label-hidden" onchange={handleChange}></lightning-input>
+            </div>
+         </section>
+    </lightning-card>
+</template>

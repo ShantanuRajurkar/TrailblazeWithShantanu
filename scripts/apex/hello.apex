@@ -14,4 +14,4 @@ Database.executeBatch(obj, 200);
 
 SalesforceToWhatsAppCallout.SalesforceWACallout();
 
-SendMessagesFromSalesforceToWhatsApp.sentTextMessage('My Name Is Shan', '919420181774');
+SendMessagesFromSalesforceToWhatsApp.sentTextMessage('I am doing good bro', '919420181774');

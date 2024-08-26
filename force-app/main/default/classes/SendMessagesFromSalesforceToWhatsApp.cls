@@ -21,11 +21,15 @@ public with sharing class SendMessagesFromSalesforceToWhatsApp {
             HttpResponse response = http.send(request);
             if(response.getStatusCode() == 200){
                 system.debug('Resonse Body : '+response.getBody());
-                SendMessagesFromSalesforceToWhatsApp msg = (SendMessagesFromSalesforceToWhatsApp) JSON.deserialize(response.getBody(), SendMessagesFromSalesforceToWhatsApp.class);                WhatsApp__c WA = new WhatsApp__c();
+                SendMessagesFromSalesforceToWhatsApp msg = (SendMessagesFromSalesforceToWhatsApp) System.JSON.deserialize(response.getBody(), SendMessagesFromSalesforceToWhatsApp.class);   
+                system.debug('msg response + '+ msg);             
+                WhatsApp__c WA = new WhatsApp__c();
                 WA.Message_Content__c = messageContent;
                 WA.Customer_Phone__c = toPhone;
                 WA.Message_ID__c = msg.messages.get(0).id;
                 WA.Message_Type__c = 'Text';
+                WA.Outgoing__c = true;
+                WA.Agent_Name__c = UserInfo.getFirstName()+' '+UserInfo.getLastName();
                 upsert WA Message_ID__c;
             }
         }catch(System.CalloutException ex){

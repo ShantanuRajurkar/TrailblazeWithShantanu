@@ -9,7 +9,7 @@ global without sharing class SalesforceWARestResourceForWebHooks {
         RestResponse response = RestContext.response;
         RestRequest request = RestContext.request;
         if(request.params.get('hub.verify_token')=='salesforcewa'){
-            response.responseBody  =  Blob.valueOf(request.params.get('hub.challenge'));
+            response.responseBody = Blob.valueOf(request.params.get('hub.challenge'));
         }
     }
 
