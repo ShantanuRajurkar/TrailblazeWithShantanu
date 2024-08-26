@@ -1,0 +1,40 @@
+.moviePoster img{
+    max-width: 300px;
+    border: 4px solid white;
+    border-radius: 5px;
+}
+
+.container{
+    background-color: black;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.movieTitle{
+    font-size: 2rem;
+    color: brown;
+    text-align: center;
+}
+
+.movieInfo{
+    text-align: left;
+    color: white;
+}
+
+.plot{
+    max-width: 400px;
+    margin-left: 0;
+}
+
+b{
+    color: brown;
+    font-style: italic;
+}
+
+p{
+    font-size: large;
+}
+
+
+

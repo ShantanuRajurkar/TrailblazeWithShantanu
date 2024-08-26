@@ -1,0 +1,28 @@
+<template>
+    <!--filter section-->
+    <div class="movFilterClass">
+        <lightning-layout horizontal-align="center">
+            <lightning-layout-item padding="around-small" size="3"> 
+                <lightning-combobox name="type" label="Type" value={selectedType} placeholder="Select Type" options={options} onchange={handleChange}></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="7">
+                <lightning-input name="search" label="Search Movies" type="search" placeholder="Search for movies/series" onchange={handleChange} is-loading={loading}></lightning-input>            
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small" size="2">
+                <lightning-input name="page" onchange={handleChange} label="Page" type="number" field-level-help="Range 1-100" min="1" max="100" step="1" message-when-range-underflow="Minimum value is 1" message-when-range-overflow="Maximum value is 1"></lightning-input>            
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+    <template lwc:if={displayTile}>
+    <!--display section-->
+        <div class="slds-var-m-top_large slds-scrollable_y scrollingClass slds-box">
+            <lightning-layout horizontal-align="center" multiple-rows="true">
+                <template for:each={searchResult} for:item="item">
+                    <lightning-layout-item key={item.imdbID} size="3" padding="around-small">
+                        <c-movie-tile movie={item} selected-movie-id={selectedMovie} onselectedposter={handleSelectedPoster}></c-movie-tile>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </div>
+    </template>
+</template>

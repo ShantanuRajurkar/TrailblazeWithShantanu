@@ -1,0 +1,28 @@
+<template>
+    <template if:true={loadCMP}>
+        <div class="slds-var-p-around_small container">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col sds-var-m-top_small moviePoster">
+                    <img src={movieDetails.Poster} alt="Image not available"/>
+                </div>
+                <div class="slds-col">
+                    <h1 class="movieTitle slds-var-m-top_small">{movieDetails.Title}</h1>
+                    <div class="slds-var-m-top_small movieInfo">
+                        <p><b>Year : </b>{movieDetails.Year}</p>
+                        <p><b>Rating : </b>{movieDetails.imdbRating}</p>
+                        <p><b>Genre : </b>{movieDetails.Genre}</p>
+                        <p><b>Released : </b>{movieDetails.Released}</p>    
+                        <p><b>Writer : </b>{movieDetails.Writer}</p>
+                        <p><b>Actor : </b>{movieDetails.Actors}</p>    
+                        <p class="plot"><b>Plot : </b>{movieDetails.Plot}</p>
+                        <p><b>Language : </b>{movieDetails.Language}</p>
+                        <p>
+                            <lightning-icon size="x-small" icon-name="custom:custom1"></lightning-icon>
+                            &nbsp; &nbsp; {movieDetails.Awards}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>
