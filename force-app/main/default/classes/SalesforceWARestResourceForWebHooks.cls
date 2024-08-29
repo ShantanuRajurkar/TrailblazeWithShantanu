@@ -56,6 +56,11 @@ global without sharing class SalesforceWARestResourceForWebHooks {
                         WA.Parent_Message_ID__c = message.context != null ? message.context.id : null;
                         
                         upsert WA Message_ID__c;
+
+                        WhatsAppEvent__e ptEvent = new WhatsAppEvent__e();
+                        ptEvent.Message_ID__c = WA.Id;
+                        ptEvent.Customer_Phone__c = WA.Customer_Phone__c;
+                        EventBus.publish(ptEvent);
                     }
                 }
             }

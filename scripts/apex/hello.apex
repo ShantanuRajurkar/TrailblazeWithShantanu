@@ -15,3 +15,6 @@ Database.executeBatch(obj, 200);
 SalesforceToWhatsAppCallout.SalesforceWACallout();
 
 SendMessagesFromSalesforceToWhatsApp.sentTextMessage('I am doing good bro', '919420181774');
+
+list<WhatsApp__c> obj = [select Id from WhatsApp__c];
+delete obj;

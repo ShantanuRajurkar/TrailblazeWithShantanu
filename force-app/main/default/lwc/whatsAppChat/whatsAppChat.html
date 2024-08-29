@@ -1,14 +1,15 @@
 <template>
     <lightning-card>
+      <lightning-spinner variant="brand" alternative-text="loading..." if:true={isSpinner}></lightning-spinner>
       <div if:false={flag} class="slds-m-around_small">
          <p>
-            <lightning-input required="true" message-when-value-missing="Please enter the phone number of customer to open the chat" type="text" placeholder="Enter customer phone number..." label="Enter Phone Number" variant="label-hidden" onchange={handlePhoneChange}></lightning-input>
+            <lightning-input required message-when-value-missing="Please enter the phone number of customer to open the chat" type="text" placeholder="Enter customer phone number..." label="Enter Phone Number" variant="label-hidden" onchange={handlePhoneChange}></lightning-input>
          </p>
          <p class="slds-m-top_medium">
             <lightning-button label="Open Chat" variant="brand" onclick={handleChat}></lightning-button>
          </p>
       </div>
-        <section if:true={flag} role="log" class="slds-chat">
+        <section if:true={flag} role="log" class="scrollDown slds-chat slds-scrollable" style="height:400px;">
             <ul class="slds-chat-list">
                 <template for:each={messages} for:item="item" for:index="index">
                     <li if:false={item.Outgoing__c} key={item.id} class="slds-chat-listitem slds-chat-listitem_outbound">
@@ -26,7 +27,7 @@
                      <li if:true={item.Outgoing__c} key={item.id} class="slds-chat-listitem slds-chat-listitem_inbound">
                         <div class="slds-chat-message">
                            <span aria-hidden="true" class="slds-avatar slds-avatar_circle slds-chat-avatar">
-                           <abbr class="slds-avatar__initials slds-avatar__initials_inverse" title="Andy Martinez">AM</abbr>
+                           <abbr class="slds-avatar__initials slds-avatar__initials_inverse" title="Andy Martinez">VK</abbr>
                            </span>
                            <div class="slds-chat-message__body">
                               <div class="slds-chat-message__text slds-chat-message__text_inbound">
@@ -41,7 +42,13 @@
                 </template>
             </ul>
             <div class="slds-m-around_small">
-                <lightning-input type="text" placeholder="type here" label="Send a Message" variant="label-hidden" onchange={handleChange}></lightning-input>
+               <p>
+                  <lightning-input class="enter-key" type="text" placeholder="type here" label="Send a Message" variant="label-hidden" value={enteredMessage} onchange={handleChange}></lightning-input>
+               </p>
+               <p class="slds-m-top_medium">
+                  <lightning-button label="Send" variant="brand" onclick={sendMessage}></lightning-button>
+                  <lightning-button label="Chat with other person" variant="destructive-text" onclick={handleBack}></lightning-button>
+               </p>
             </div>
          </section>
     </lightning-card>
