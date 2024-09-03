@@ -3,5 +3,5 @@ trigger PCGIConsultingQueNo1 on Contact (after insert) {
     for(Contact con : Trigger.new){
         conIds.add(con.Id);
     }
-    WiproQueNo1Helper.insertUser(conIds);
+    PCGIConsultingQueNo1Helper.insertUser(conIds);
 }
