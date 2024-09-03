@@ -1,4 +1,4 @@
-public with sharing class WiproQueNo1Helper {
+public with sharing class PCGIConsultingQueNo1Helper {
     @future
     public static void insertUser(set<Id> conIds) {
         List<User> usList = new List<User>();
