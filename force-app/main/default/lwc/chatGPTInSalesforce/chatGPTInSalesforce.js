@@ -12,9 +12,9 @@ export default class ChatGPTInSalesforce extends LightningElement {
     handleOnClick(event){
         if(this.isChange){
             this.isLoaded=false;
-            console.log('handleClick 1');
+            console.log('handleClicked 1');
             this.getChatGPTData();
-            console.log('handleClick 2');
+            console.log('handleClicked 2');
             this.isChange=false;
         }
     }
