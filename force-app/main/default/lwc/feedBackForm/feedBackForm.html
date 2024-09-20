@@ -1,0 +1,49 @@
+<template>
+    <lightning-card title="Training Feedback" icon-name="custom:custom66">
+
+        <lightning-combobox
+            label="Candidate Name"
+            placeholder="Select Course Name"
+            options={candidateOptions}
+            value={candidateName}
+            onchange={handleCandidateChange}>
+        </lightning-combobox>
+
+        <lightning-combobox
+            label="Trainer Name"
+            placeholder="Select Course Name"
+            options={trainerOptions}
+            value={trainerName}
+            onchange={handleTrainerChange}>
+        </lightning-combobox>
+
+        <lightning-combobox
+            label="Course Name"
+            placeholder="Select Course Name"
+            options={courseOptions}
+            value={courseName}
+            onchange={handleCourseChange}>
+        </lightning-combobox>
+
+        <lightning-combobox
+            label="Rating"
+            placeholder="Select Rating"
+            options={ratingOptions}
+            value={feedbackRating}
+            onchange={handleRatingChange}>
+        </lightning-combobox>
+
+        <lightning-textarea
+            label="Comments"
+            placeholder="Enter your comments"
+            value={feedbackComments}
+            onchange={handleCommentsChange}>
+        </lightning-textarea>
+
+        <lightning-button label="Submit Feedback" onclick={submitFeedback}></lightning-button>
+
+        <template if:true={errorMessage}>
+            <p class="slds-text-color_error">{errorMessage}</p>
+        </template>
+    </lightning-card>
+</template>

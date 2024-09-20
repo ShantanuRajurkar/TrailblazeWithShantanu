@@ -1,0 +1,5 @@
+<template>
+    <lightning-card title="Training Schedule">
+        <c-custom-data-Types-For-Lightning-Data-Table key-field="Id" columns={columns} data={tsData} max-row-selection="1" onsave={handleSave} draft-values={draftValues} onrowaction={navigateToRecordViewPage}></c-custom-data-Types-For-Lightning-Data-Table>    
+    </lightning-card>
+</template>

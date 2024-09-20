@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Schedule Training">
+        <lightning-combobox
+            label="Select Candidate"
+            placeholder="Select Candidate"
+            options={candidateOptions}
+            onchange={handleCandidateChange}>
+        </lightning-combobox>
+        
+        <lightning-combobox
+            label="Select Course"
+            placeholder="Select Course"
+            options={courseOptions}
+            onchange={handleCourseChange}>
+        </lightning-combobox>
+        
+        <lightning-combobox
+            label="Select Trainer"
+            placeholder="Select Trainer"
+            options={trainerOptions}
+            onchange={handleTrainerChange}>
+        </lightning-combobox>
+        
+        <lightning-input
+            type="datetime"
+            label="Schedule Date/Time"
+            value={scheduleDateTime}
+            onchange={handleScheduleTimeChange}>
+        </lightning-input>
+        
+        <lightning-button label="Schedule Training" onclick={scheduleTraining}></lightning-button>
+        
+        <template if:true={errorMessage}>
+            <p class="slds-text-color_error">{errorMessage}</p>
+        </template>
+    </lightning-card>
+</template>

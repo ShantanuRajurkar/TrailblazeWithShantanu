@@ -45,9 +45,18 @@
                <p>
                   <lightning-input class="enter-key" type="text" placeholder="type here" label="Send a Message" variant="label-hidden" value={enteredMessage} onchange={handleChange}></lightning-input>
                </p>
+               <p if:true={filesend}>
+                  <lightning-input label="Enter File Name" onchange={fileName}></lightning-input>
+                  <lightning-input label="Enter Caption Line" onchange={captionLine}></lightning-input>
+                  <lightning-combobox label="Select Document" value={selectedValue} options={documentOptions} onchange={handleCombo}></lightning-combobox>
+                  <lightning-button class="slds-m-around_small" label="Send Document" variant="brand" onclick={sendDocument}></lightning-button>
+               </p>
                <p class="slds-m-top_medium">
                   <lightning-button label="Send" variant="brand" onclick={sendMessage}></lightning-button>
                   <lightning-button label="Chat with other person" variant="destructive-text" onclick={handleBack}></lightning-button>
+               </p>
+               <p if:false={filesend} class="slds-m-top_medium">
+                  <lightning-button label="Attachment" variant="brand" onclick={showSend}></lightning-button>
                </p>
             </div>
          </section>

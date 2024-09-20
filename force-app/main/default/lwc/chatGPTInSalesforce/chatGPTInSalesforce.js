@@ -21,7 +21,7 @@ export default class ChatGPTInSalesforce extends LightningElement {
     async getChatGPTData(){
         const endPoint='https://api.openai.com/v1/chat/completions';
         const myHeaders=new Headers();
-        myHeaders.append('Authorization', 'Bearer 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');
+        myHeaders.append('Authorization', 'Bearer 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');
         myHeaders.append('Content-Type', 'application/json');
         const raw=JSON.stringify({
             'model': 'gpt-4o',

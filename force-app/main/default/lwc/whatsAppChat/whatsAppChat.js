@@ -1,8 +1,14 @@
 import { LightningElement, track, wire } from 'lwc';
 import allMessages from '@salesforce/apex/SalesforceToWhatsAppCallout.allMessages';
 import sentTextMessage from '@salesforce/apex/SalesforceToWhatsAppCallout.sentTextMessage';
+import sendMediaMessage from '@salesforce/apex/SendMessagesFromSalesforceToWhatsApp.sendMediaMessage';
 import { subscribe, onError, unsubscribe } from 'lightning/empApi';
 import sendTextMessageForPlatformEvent from '@salesforce/apex/SalesforceToWhatsAppCallout.sendTextMessageForPlatformEvent';
+import { getListUi } from 'lightning/uiListApi';
+import DOCUMENT_URLS_OBJECT from '@salesforce/schema/Documents_Download_Urls__c';
+import URL_FIELD from '@salesforce/schema/Documents_Download_Urls__c.Url__c'
+import { getRecord } from 'lightning/uiRecordApi';
+const FIELDS = [URL_FIELD];
 export default class WhatsAppChat extends LightningElement {
     @track messages;
     @track delayInMilliseconds = 5000;
@@ -14,7 +20,56 @@ export default class WhatsAppChat extends LightningElement {
     enteredPhoneNo = '';
     enteredMessage = '';
     subscription;
+    filesend = false;
+    @track documentOptions = [];
+    @track selectedValue = '';
+    @track documentUrl;
+    filename;
+    captionline;
+
+    captionLine(event){
+        this.captionline = event.target.value;
+    }
+
+    fileName(event){
+        this.filename = event.target.value;
+    }
+
+    @wire(getRecord, { recordId: '$selectedValue', fields: FIELDS })
+    wiredRecord({ error, data }) {
+        if (data) {
+            console.log('Url : ', data);
+            this.documentUrl = data.fields.Url__c.value; // Get the URL field value
+             // Get the Name field value
+        } else if (error) {
+            console.error('Error fetching the document record:', error);
+        }
+    }
     
+    @wire(getListUi, {
+        objectApiName: DOCUMENT_URLS_OBJECT, // The API name of the custom object
+        listViewApiName: 'All' // List view API name (use standard or custom)
+    })
+    wiredDocuments({ error, data }) {
+        if (data) {
+            // Map the records to the label-value pairs for the combobox
+            const records = data.records.records;
+            console.log('records : ', data.records.records);
+            
+            this.documentOptions = records.map(record => ({
+                label: record.fields.Name.value,  // Document Name as label
+                value: record.id // Document URL as value
+            }));
+        } else if (error) {
+            console.error('Error fetching document URLs:', error);
+        }
+    }
+
+    handleCombo(event) {
+        this.selectedValue = event.detail.value;
+        console.log('Selected URL:', this.selectedValue);
+    }
+
     connectedCallback() {
         this.handleSubscribe();
         // Register error listener
@@ -74,19 +129,6 @@ export default class WhatsAppChat extends LightningElement {
         });
     }
 
-    /*@wire(allMessages, {CustomerPhone :'$enteredPhoneNo'})wiredMessages({error, data}){
-        if(data){
-            this.messages = data;
-            this.messages.forEach(mes => {
-                console.log('Message Content : ',JSON.stringify(mes));
-              });
-        }
-        if(error){
-            this.errorDetails = error;
-            console.log('Error while getting list of WhatsApp messages : ', this.errorDetails);
-        }
-    };*/
-
     handlePhoneChange(event){
         this.enteredPhoneNo = event.target.value;
     }
@@ -101,6 +143,30 @@ export default class WhatsAppChat extends LightningElement {
         if(valid){
             this.isSpinner = true;
             sentTextMessage({messageContent : this.enteredMessage, toPhone : this.enteredPhoneNo}).then(res=>{
+                this.messages.push(res);
+            }).catch(err=>{
+                console.log('Error : ', err);
+            }).finally(()=>{
+                let scrollDown = this.template.querySelector('.scrollDown');
+                if(scrollDown){
+                    scrollDown.scrollTop = scrollDown.scrollHeight;
+                }
+                this.isSpinner = false;
+                this.enteredMessage = '';
+            });
+        }
+    }
+
+    showSend(){
+        this.filesend = true;
+    }
+
+    sendDocument(){
+        this.filesend = false;
+        let valid = this.validity();
+        if(valid){
+            this.isSpinner = true;
+            sendMediaMessage({toPhone : this.enteredPhoneNo, url : this.documentUrl, filename : this.filename, caption : this.captionline}).then(res=>{
                 this.messages.push(res);
             }).catch(err=>{
                 console.log('Error : ', err);

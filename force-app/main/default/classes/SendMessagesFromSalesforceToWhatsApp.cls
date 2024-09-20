@@ -42,21 +42,23 @@ public with sharing class SendMessagesFromSalesforceToWhatsApp {
     }
     
     @AuraEnabled
-    public static WhatsApp__c sendMediaMessage(String toPhone, String url){
+    public static WhatsApp__c sendMediaMessage(String toPhone, String url, String filename, String caption){
         HTTP http = new HTTP();
+        system.debug('Here We are');
         HttpRequest request = new HttpRequest();
         request.setEndpoint('https://graph.facebook.com/v14.0/412439728614365/messages');
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
         request.setHeader('Authorization', 'Bearer '+System.Label.WhatsAppAccessToken);
-        String json = '{'+
+        String json=		'{'+
 		'    "messaging_product": "whatsapp",'+
 		'    "recipient_type": "individual",'+
 		'    "to": "'+toPhone+'",'+
 		'    "type": "document",'+
 		'    "document": {'+
 		'        "link": "'+url+'",'+
-		'        "caption": "<DOCUMENT_CAPTION_TEXT>"'+
+		'        "filename": "'+filename+'",'+
+		'        "caption": "'+caption+'"'+
 		'    }'+
 		'}';
         request.setBody(json);
