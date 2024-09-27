@@ -6,7 +6,6 @@ trigger MichelinQueNo1 on Custom_Task__c (after insert, after update) {
     if(Trigger.isAfter && Trigger.isInsert){
         for(Custom_Task__c ctNew : Trigger.new){
         	proIds.add(ctNew.Project__c);
-            system.debug('project Id in insert : '+proIds);
         }
     }
 
@@ -14,7 +13,6 @@ trigger MichelinQueNo1 on Custom_Task__c (after insert, after update) {
         for(Custom_Task__c ctNew : Trigger.new){
             if(ctNew.Status__c != Trigger.oldMap.get(ctNew.Id).Status__c){
             	proIds.add(ctNew.Project__c);
-                system.debug('project Id in update : '+proIds);
             }
         }
     }
@@ -36,7 +34,6 @@ trigger MichelinQueNo1 on Custom_Task__c (after insert, after update) {
             proNew.Status__c = 'In Progress';
         }
         proToUpdate.add(proNew);
-        system.debug('Map : '+projectIdsToTaskStatus);
     }
     
     if(!proToUpdate.isEmpty()){
