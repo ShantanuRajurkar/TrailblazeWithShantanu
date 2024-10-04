@@ -58,19 +58,24 @@ public with sharing class TrainingSchedulerController {
         
         // Send reminder emails to both trainer and candidate
         //sendEmailReminder(trainerId, candidateId, scheduleTime);
-        String candidate_message = 'Please be ready at Scheduled Time of ' + scheduleTime.format('dd/MM/yyyy hh:mm');
-        String trainer_message = 'Please be ready at Scheduled Time of ' + scheduleTime.format('dd/MM/yyyy hh:mm');
-        SendMessagesFromSalesforceToWhatsApp.sentTextMessage(candidate_message, (String)candidate1.Phone__c);
-        SendMessagesFromSalesforceToWhatsApp.sentTextMessage(trainer_message, (String)trainer1.Phone__c);    
+        String candidate_message = 'Dear Candidate, Please be ready at Scheduled Time of ' + scheduleTime.format('dd/MM/yyyy hh:mm');
+        String trainer_message = 'Dear Sir, Please be ready at Scheduled Time of ' + scheduleTime.format('dd/MM/yyyy hh:mm');
+        //SendMessagesFromSalesforceToWhatsApp.sentTextMessage(candidate_message, (String)candidate1.Phone__c);
+        //SendMessagesFromSalesforceToWhatsApp.sentTextMessage(trainer_message, (String)trainer1.Phone__c);    
         system.debug('trainer.Phone__c :'+trainer1.Phone__c);
-        sendWhatsAppMessage(candidate_message, trainer_message, (String)candidate1.Phone__c, (String)trainer1.Phone__c);
+        sendWhatsAppMessage(candidate_message, (String)candidate1.Phone__c);
+        sendWhatsAppMessageTrainer(trainer_message, (String)trainer1.Phone__c);
         return 'Training scheduled successfully!';
     }
 
     @future(callout=true)
-    public static void sendWhatsAppMessage(String candidate_message, String trainer_message, String canPhone, String trainPhone) {
-        SendMessagesFromSalesforceToWhatsApp.sentTextMessage(candidate_message, canPhone);
-        SendMessagesFromSalesforceToWhatsApp.sentTextMessage(trainer_message, trainPhone);    
+    public static void sendWhatsAppMessage(String candidate_message, String canPhone) {
+        SendMessagesFromSalesforceToWhatsApp.sentTextMessage(candidate_message, canPhone);    
+    }
+
+    @future(callout=true)
+    public static void sendWhatsAppMessageTrainer(String trainer_message, String trainPhone) {
+        SendMessagesFromSalesforceToWhatsApp.sentTextMessage(trainer_message, trainPhone);
     }
     
     public static void sendEmailReminder(Id trainerId, Id candidateId, Datetime scheduleTime) {

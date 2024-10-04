@@ -5,6 +5,7 @@ import Id from '@salesforce/schema/Training_Schedule__c.Id';
 import { updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
+import { refreshApex } from '@salesforce/apex';
 import getTrainingScheduleDetailsList from '@salesforce/apex/TrainingScheduleDetails.getTrainingScheduleDetailsList';
 
 const columns = [
@@ -71,17 +72,27 @@ export default class CoursesAndTopicsDetails extends LightningElement {
     };
     
     handleSave(event) {
+        console.log('In Handle Save');
         const updatedFields = event.detail.draftValues.map(draftValue => {
+            console.log('Draft Values : ', draftValue);
+            console.log('Draft Values : ', JSON.stringify({
+                fields: {
+                    [Id.fieldApiName]: draftValue.Id,
+                    [Status.fieldApiName]: draftValue.Status__c
+                }
+            }));
             return {
                 fields: {
                     [Id.fieldApiName]: draftValue.Id,
-                    [Status.fieldApiName]: draftValue.Status
+                    [Status.fieldApiName]: draftValue.Status__c
                 }
             };
         });
-    
+        console.log('Update Fields : ', JSON.stringify(updatedFields));
         updatedFields.forEach(recordInput => {
+            console.log('Record Input :', JSON.stringify(recordInput));
             updateRecord(recordInput).then((res) => {
+                refreshApex(this.tsData);
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Success',
@@ -92,6 +103,7 @@ export default class CoursesAndTopicsDetails extends LightningElement {
                 // Reset the draft values after saving
                 this.draftValues = [];
             }).catch(error => {
+                console.log('Update Training Error : ',JSON.stringify(error));
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error updating record',

@@ -7,6 +7,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import getLeadListForCoachingAcademy from '@salesforce/apex/LeadDetails.getLeadListForCoachingAcademy';
 import convertLeadsToOpportunities from '@salesforce/apex/LeadConversionController.convertLeadsToOpportunities';
+import { refreshApex } from '@salesforce/apex';
 
 const columns = [
     {label: 'Name', fieldName: 'Name', editable: true, hideDefaultActions: true},
@@ -28,10 +29,11 @@ const columns = [
 
 export default class CoachingAcademy extends LightningElement {
     @track leadInfo = {};
-    @track draftValues = [];
+    draftValues;
     @track leadData;
     columns = columns;
     @track leadStatus = [];
+    wiredLeads;
 
     @wire(getObjectInfo,{
          objectApiName: 'Lead'
@@ -56,6 +58,7 @@ export default class CoachingAcademy extends LightningElement {
 
     @wire(getLeadListForCoachingAcademy,{pickList : '$leadStatus'})wiredLeadData({data,error}){
         if(data){
+            this.wiredLeads = data;
             this.leadData = data.map(currItem=>{
                 let pickListOptions = this.leadStatus;
                 return{
@@ -69,6 +72,7 @@ export default class CoachingAcademy extends LightningElement {
     };
     
     handleSave(event) {
+        console.log('In Handle Save');
         const updatedFields = event.detail.draftValues.map(draftValue => {
             return {
                 fields: {
@@ -77,9 +81,11 @@ export default class CoachingAcademy extends LightningElement {
                 }
             };
         });
-    
+        console.log('Update Fields : ', updatedFields);
         updatedFields.forEach(recordInput => {
+            console.log('Record Input :', recordInput);
             updateRecord(recordInput).then((res) => {
+                refreshApex(this.wiredLeads);
                 if(res.fields.Status.value == 'Closed - Converted'){
                     convertLeadsToOpportunities({leadId : res.id}).then(()=>{
                     }).catch(error=>{
@@ -96,6 +102,7 @@ export default class CoachingAcademy extends LightningElement {
                 // Reset the draft values after saving
                 this.draftValues = [];
             }).catch(error => {
+                console.log('Update Lead Error : ',JSON.stringify(error));
                 this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error updating record',

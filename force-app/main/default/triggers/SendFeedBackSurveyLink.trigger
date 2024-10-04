@@ -8,7 +8,8 @@ trigger SendFeedBackSurveyLink on Training_Schedule__c (After update) {
     Messaging.SingleEmailMessage[] emails = new List<Messaging.SingleEmailMessage>();
     for(Candidate__c ca : [SELECT Id, Name, Email__c FROM Candidate__c WHERE Id IN :candidateIds]){
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
-        String link = 'https://www.salesforce.com';
+        system.debug('Email : '+ca.Email__c);
+        String link = 'https://cunning-shark-d3lq59-dev-ed.trailblaze.my.site.com/feedbackform';
         String emailBody = 'Hi there,<br/><br/>' +
                            'Please click the following link to to provoide feedback of your relavant course and trainer <br/>' +
                            '<a href="' + link + '">Click here to open feedback form</a><br/><br/>' +
@@ -16,6 +17,9 @@ trigger SendFeedBackSurveyLink on Training_Schedule__c (After update) {
         String[] toAddresses = new String[] { ca.Email__c };
         email.setToAddresses(toAddresses);
         email.setSubject('Feedback Need For Coaching Academy');
+        email.setHtmlBody(emailBody);
+        emails.add(email);
     }
+    system.debug('Emails : '+emails);
     Messaging.sendEmail(emails);
 }

@@ -19,13 +19,14 @@ export default class LeadCaptureForm extends LightningElement {
     company = '';
     referenceBy = '';
     referenceEmployeeId = '';
-
+    isShow = false;
     handleInputChange(event) {
         const field = event.target.dataset.id;
         this[field] = event.target.value;
     }
 
     handleSubmit() {
+        this.isShow = true;
         const fields = {};
         fields[FIRST_NAME_FIELD.fieldApiName] = this.firstName;
         fields[LAST_NAME_FIELD.fieldApiName] = this.lastName;

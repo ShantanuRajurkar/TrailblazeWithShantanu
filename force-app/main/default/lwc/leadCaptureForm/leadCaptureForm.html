@@ -1,14 +1,19 @@
 <template>
-    <lightning-card title="Lead Capture Form" icon-name="custom:custom63">
-        <div class="slds-p-around_medium">
-            <lightning-input label="First Name" value={firstName} onchange={handleInputChange} data-id="firstName"></lightning-input>
-            <lightning-input label="Last Name" value={lastName} onchange={handleInputChange} data-id="lastName"></lightning-input>
-            <lightning-input label="Email" value={email} onchange={handleInputChange} data-id="email"></lightning-input>
-            <lightning-input label="Phone" value={phone} onchange={handleInputChange} data-id="phone"></lightning-input>
-            <lightning-input label="Company" value={company} onchange={handleInputChange} data-id="company"></lightning-input>
-            <lightning-input label="Reference By" value={referenceBy} onchange={handleInputChange} data-id="referenceBy"></lightning-input>
-            <lightning-input label="Reference Employee ID" value={referenceEmployeeId} onchange={handleInputChange} data-id="referenceEmployeeId"></lightning-input>
-            <lightning-button label="Submit" onclick={handleSubmit} class="slds-m-top_medium"></lightning-button>
-        </div>
-    </lightning-card>
+    <div if:false={isShow}>
+        <lightning-card title="Lead Capture Form" icon-name="custom:custom63">
+            <div class="slds-p-around_medium">
+                <lightning-input label="First Name" value={firstName} onchange={handleInputChange} data-id="firstName"></lightning-input>
+                <lightning-input label="Last Name" value={lastName} onchange={handleInputChange} data-id="lastName"></lightning-input>
+                <lightning-input label="Email" value={email} onchange={handleInputChange} data-id="email"></lightning-input>
+                <lightning-input label="Phone" value={phone} onchange={handleInputChange} data-id="phone"></lightning-input>
+                <lightning-input label="Company" value={company} onchange={handleInputChange} data-id="company"></lightning-input>
+                <lightning-input label="Reference By" value={referenceBy} onchange={handleInputChange} data-id="referenceBy"></lightning-input>
+                <lightning-input label="Reference Employee ID" value={referenceEmployeeId} onchange={handleInputChange} data-id="referenceEmployeeId"></lightning-input>
+                <lightning-button label="Submit" onclick={handleSubmit} class="slds-m-top_medium"></lightning-button>
+            </div>
+        </lightning-card>
+    </div>
+    <div if:true={isShow}>
+        <lightning-formatted-text title="Form Submitted" value="Form Submitted"></lightning-formatted-text>
+    </div>
 </template>
