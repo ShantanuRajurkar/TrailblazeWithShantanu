@@ -1,5 +1,5 @@
 import { createElement } from 'lwc';
-import ShowingNumberofCharacters from 'c/showingNumberofCharacters';
+import synechronQueNo1 from 'c/showingNumberofCharacters';
 
 describe('c-showing-numberof-characters', () => {
     afterEach(() => {

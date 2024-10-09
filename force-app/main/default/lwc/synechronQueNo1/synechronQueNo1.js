@@ -11,7 +11,6 @@ export default class SynechronQueNo1 extends LightningElement {
 
     handleClick(event){
         this.isShow = true;
-        //this.nameArray = this.name.split('');
         this.countTheChar();
     }
 
