@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Synechron Interview Scenario">
+        <lightning-input class="slds-var-p-around_small" label="Enter The String" value={inputString} onchange={handle}></lightning-input>
+        <lightning-button-group class="slds-var-p-around_small">
+            <lightning-button label="Calculate" onclick={handleClick}></lightning-button>
+            <lightning-button label="Reset" onclick={handleReset}></lightning-button>
+        </lightning-button-group>    
+    
+        <div class="slds-var-p-around_small" if:true={isShow}>
+            <template for:each={charCounts} for:item="item">
+                <p key={item.char}>{item.char} : {item.count}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
