@@ -58,7 +58,7 @@ export default class WhatsAppChat extends LightningElement {
             
             this.documentOptions = records.map(record => ({
                 label: record.fields.Name.value,  // Document Name as label
-                value: record.id // Document URL as value
+                value: record.id // Record ID as value
             }));
         } else if (error) {
             console.error('Error fetching document URLs:', error);
