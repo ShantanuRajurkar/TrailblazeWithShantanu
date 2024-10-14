@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Post On LinkedIn" icon-name="standard:linked">
+        <div class="slds-var-p-around_small">
+            <lightning-input label="Enter Text To Post On LinkedIn" value={postText} placeholder="Enter Text ... " onchange={handleChange}></lightning-input>
+        </div>
+        <div class="slds-var-p-around_small">
+            <lightning-button label="Post" slot="actions" onclick={postToLinkedIn}></lightning-button>
+        </div>
+    </lightning-card>
+</template>
