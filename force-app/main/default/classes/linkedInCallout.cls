@@ -1,4 +1,4 @@
-public with sharing class linkedInCallout {
+public with sharing class LinkedInCallout {
     @AuraEnabled
     public static string getUserInfo(String linkedInTextMessage){
         try {
@@ -8,7 +8,7 @@ public with sharing class linkedInCallout {
             HTTPRequest request = new HTTPRequest();
             request.setEndPoint('https://api.linkedin.com/v2/userinfo');
             request.setMethod('GET');
-            request.setHeader('Authorization', 'Bearer AQU4vZB27ZXdL5pinTWoYinAktgKbxaMjG0d5iLX1sO-QDO2B3i4p2JBcfRXFrwg-fg3zUfI1RohlLZoDfsPk3Z_fCs5lCIddFGo5fv7t5uHXN2L02HAxZs_Kut7QAKMorGBOHBOuj6Dw1T_Oy1ot2uTU0337pjwJtsIU187ibJmG2h24jsBXKo_al0Bt8gIxNlQSORO8exQpmxamVRtmc3kZBW2oD9MSXpR0po3s_UHsen2UX4aNAbWFV2bAD4ZqMz376WT2yD1VeeAHYo5UQpH4TYhVqLK3OItbblHOZs6ksCAINNHgGk5jOVYWrPSwMz84xA7kAFR1-dfvOoiODpjidDBXg');
+            request.setHeader('Authorization', 'Bearer <your_access_token>');
             HttpResponse response = HTTP.send(request);
             String JSONString = response.getBody();
             Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(JSONString);
@@ -26,7 +26,7 @@ public with sharing class linkedInCallout {
         HTTP http = new HTTP();
         HttpRequest request = new HttpRequest();
         request.setEndPoint(' https://api.linkedin.com/v2/ugcPosts');
-        request.setHeader('Authorization', 'Bearer AQU4vZB27ZXdL5pinTWoYinAktgKbxaMjG0d5iLX1sO-QDO2B3i4p2JBcfRXFrwg-fg3zUfI1RohlLZoDfsPk3Z_fCs5lCIddFGo5fv7t5uHXN2L02HAxZs_Kut7QAKMorGBOHBOuj6Dw1T_Oy1ot2uTU0337pjwJtsIU187ibJmG2h24jsBXKo_al0Bt8gIxNlQSORO8exQpmxamVRtmc3kZBW2oD9MSXpR0po3s_UHsen2UX4aNAbWFV2bAD4ZqMz376WT2yD1VeeAHYo5UQpH4TYhVqLK3OItbblHOZs6ksCAINNHgGk5jOVYWrPSwMz84xA7kAFR1-dfvOoiODpjidDBXg');
+        request.setHeader('Authorization', 'Bearer <your_access_token>');
         request.setMethod('POST');
         JSONGenerator gen = JSON.createGenerator(true);
         gen.writeStartObject();
