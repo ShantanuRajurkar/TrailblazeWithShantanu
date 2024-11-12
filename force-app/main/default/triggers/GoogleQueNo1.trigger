@@ -4,7 +4,7 @@
  * @last modified on  : 11-12-2024
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
-trigger PatientTrigger on Patient__c (after update) {
+trigger GoogleQueNo1 on Patient__c (after update) {
     set<Id> fatalPatIds = new Set<Id>();
     set<Id> curedPatIds = new Set<Id>();
     List<Area__c> areasToUpdate = new List<Area__c>();
