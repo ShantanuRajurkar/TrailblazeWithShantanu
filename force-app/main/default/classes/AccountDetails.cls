@@ -22,7 +22,7 @@ public with sharing class AccountDetails {
     @AuraEnabled(cacheable=true)
     public static list<Account> getAccountRecordsForRowAndHeraderActionOnLightningDataTable(){
         try {
-            return [SELECT Id, Name, Rating, Phone, Industry, AccountNumber, Type FROM Account WITH SECURITY_ENFORCED];  
+            return [SELECT Id, Name, Rating, Phone, Industry, AccountNumber, Type FROM Account WITH SECURITY_ENFORCED LIMIT 10];  
        } catch (Exception e) {
             system.debug('Exception: ' + e.getMessage());
             throw new AuraHandledException(e.getMessage());
