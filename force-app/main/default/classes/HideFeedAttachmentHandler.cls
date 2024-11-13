@@ -163,13 +163,11 @@ public with sharing class HideFeedAttachmentHandler {
         }
         for(FeedItem item : [SELECT Id, Body, Type, (SELECT Id, Type, Title, FeedEntityId, RecordId FROM FeedAttachments) FROM FeedItem WHERE Id IN :feedItemIds]){
             string body = '';
-            integer i = 1;
             if(item.Type == 'ContentPost'){
                 for(FeedAttachment feedAttachment : item.FeedAttachments){             
                     contentDocToParentMap.put(contentVerToContentDoc.get(feedAttachment.RecordId), feedAttachment.FeedEntityId);
                     if(feedAttachment.Type == 'Content'){
                         String str = contentVerToTitle.get(feedAttachment.RecordId);
-                        i++;
                         String imageTag = '';
                         if(item.Body != null){
                             imageTag = '<p>' + '<a href="' + contentVerToPublickUrl.get(feedAttachment.RecordId) + '" target="_blank">' + str + '</a>' + '</p>';
