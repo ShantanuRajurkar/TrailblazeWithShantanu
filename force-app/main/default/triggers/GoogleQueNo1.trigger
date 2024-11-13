@@ -1,7 +1,7 @@
 /**
  * @description       : 
  * @author            : Shantanu Rajurkar
- * @last modified on  : 11-12-2024
+ * @last modified on  : 11-13-2024
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 trigger GoogleQueNo1 on Patient__c (after update) {
@@ -23,7 +23,7 @@ trigger GoogleQueNo1 on Patient__c (after update) {
             Date today = Date.today();
             Date createdDate = createdDateTime.date();
             system.debug('Difference '+Math.abs(createdDate.daysBetween(today)));
-            sum = sum + 5 +(Math.abs(createdDate.daysBetween(today)));
+            sum = sum + (Math.abs(createdDate.daysBetween(today)));
         }    
         area.Average_Days_Required_To_Cured__c = sum/area.Patients__r.size();
         areasToUpdate.add(area);
@@ -35,7 +35,7 @@ trigger GoogleQueNo1 on Patient__c (after update) {
             DateTime createdDateTime = pt.CreatedDate;
             Date today = Date.today();
             Date createdDate = createdDateTime.date();
-            sum = sum + 5 +(Math.abs(createdDate.daysBetween(today)));
+            sum = sum + (Math.abs(createdDate.daysBetween(today)));
         }    
         area.Average_Fatal_Days__c = sum/area.Patients__r.size();
         areasToUpdate.add(area);
