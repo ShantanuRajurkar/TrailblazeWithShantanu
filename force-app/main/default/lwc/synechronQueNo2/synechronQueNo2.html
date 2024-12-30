@@ -1,0 +1,19 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 12-15-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <lightning-button label="Generate Block" onclick={generateBlock}></lightning-button>
+  <lightning-button label="Kill Block" onclick={killBlock}></lightning-button>
+  <lightning-button label="Edit Block" onclick={editBlock}></lightning-button>
+  
+  <div class="image-container" if:true={imageLoaded}>
+      <img src={imageSrc} 
+           class="editable-image" 
+           onmousedown={onImageMouseDown} 
+           alt="Editable Image"/>
+  </div>
+</template>

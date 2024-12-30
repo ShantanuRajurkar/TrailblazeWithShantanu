@@ -1,0 +1,15 @@
+.image-container {
+    position: relative;
+    margin-top: 10px;
+}
+
+.editable-image {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    border: 2px solid #000;
+}
+
+.editing {
+    cursor: se-resize;
+}
