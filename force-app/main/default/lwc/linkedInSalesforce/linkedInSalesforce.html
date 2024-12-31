@@ -1,8 +1,26 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 12-30-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 <template>
     <lightning-card title="Post On LinkedIn" icon-name="standard:linked">
         <div class="slds-var-p-around_small">
             <lightning-input label="Enter Text To Post On LinkedIn" value={postText} placeholder="Enter Text ... " onchange={handleChange}></lightning-input>
         </div>
+        <div class="slds-p-around_medium">
+            <lightning-input type="file" label="Upload File" onchange={handleFileChange}></lightning-input>
+        </div>
+        <template if:true={fileContent}>
+            <div class="slds-m-top_medium">
+                <p><strong>File Name:</strong> {fileName}</p>
+                <p><strong>File Type:</strong> {fileType}</p>
+                <p><strong>Binary Value:</strong></p>
+                <textarea readonly class="slds-textarea">{fileContent}</textarea>
+            </div>
+        </template>
         <div class="slds-var-p-around_small">
             <lightning-button label="Post" slot="actions" onclick={postToLinkedIn}></lightning-button>
         </div>
