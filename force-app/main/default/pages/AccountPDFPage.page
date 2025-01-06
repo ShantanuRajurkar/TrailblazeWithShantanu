@@ -1,0 +1,17 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 01-06-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<apex:page standardController="Account" renderAs="pdf">
+    <h1>Account Details</h1>
+    <apex:outputText value="Account Name: {!Account.Name}" />
+    <br />
+    <apex:outputText value="Industry: {!Account.Industry}" />
+    <br />
+    <apex:outputText value="Phone: {!Account.Phone}" />
+    <br />
+    <apex:outputText value="Website: {!Account.Website}" />
+</apex:page>

@@ -1,3 +1,10 @@
+/**
+ * @description       : 
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             : 
+ * @last modified on  : 01-05-2025
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+**/
 trigger ContentVersionTrigger on ContentVersion (after insert) {
     List<ContentDistribution> cdList = new List<ContentDistribution>();  
     
@@ -38,7 +45,7 @@ trigger ContentVersionTrigger on ContentVersion (after insert) {
         Documents_Download_Urls__c doc = new Documents_Download_Urls__c();
         doc.Name = relatedContentVersion.Title; // Use the Title from ContentVersion as the file name
         doc.Url__c = des.ContentDownloadUrl;
-        
+        doc.Content_Version_Id__c = des.ContentVersionId;
         String DownloadUrl = des.ContentDownloadUrl;
         String publicUrl = des.DistributionPublicUrl;
         System.debug('DownloadUrl ' + DownloadUrl);
