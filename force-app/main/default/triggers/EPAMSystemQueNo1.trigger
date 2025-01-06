@@ -5,7 +5,7 @@
  * @last modified on  : 01-06-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
-trigger MicrosoftQueNo1 on Account (after insert) {
+trigger EPAMSystemQueNo1 on Account (after insert) {
     List<Id> accountIds = new List<Id>();
     Map<Id, String> accountOwnerEmails = new Map<Id, String>();
     set<Id> accIds = new Set<Id>();

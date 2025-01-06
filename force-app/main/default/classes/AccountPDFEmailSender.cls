@@ -10,7 +10,7 @@ public with sharing class AccountPDFEmailSender {
     public static void sendAccountDetailsAsPDF(List<Id> accountIds, Map<Id, String> accountOwnerEmails) {
         List<Messaging.SingleEmailMessage> emails = new List<Messaging.SingleEmailMessage>();
         system.debug('accountIds : '+accountIds);
-        system.debug('accountOnwerEmails : '+accountOwnerEmails);
+        system.debug('accountOnwerEmail : '+accountOwnerEmails);
         for (Id accountId : accountIds) {
             String ownerEmail = accountOwnerEmails.get(accountId);
             if (String.isNotBlank(ownerEmail)) {
