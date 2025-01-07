@@ -7,7 +7,7 @@
 **/
 trigger EPAMSystemQueNo1 on Account (after insert) {
     Set<Id> accIds = trigger.newMap.keySet();
-    Map<Id, Account> accountsMap = new Map<Id,Account> ([SELECT Id, Email FROM Account WHERE Id IN :accIds]);
+    Map<Id, Account> accountsMap = new Map<Id,Account> ([SELECT Id, Owner.Email FROM Account WHERE Id IN :accIds]);
 
     // Call helper class to send emails
     AccountPDFEmailSender.sendAccountDetailsAsPDF(accountsMap);
