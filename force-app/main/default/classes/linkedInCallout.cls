@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 01-05-2025
+ * @last modified on  : 01-11-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class LinkedInCallout {
@@ -16,7 +16,7 @@ public with sharing class LinkedInCallout {
             HTTPRequest request = new HTTPRequest();
             request.setEndPoint('https://api.linkedin.com/v2/userinfo');
             request.setMethod('GET');
-            request.setHeader('Authorization', 'Bearer AQW_ruC_jdk8qGWhP3Dv96QWT-CcBp7bP2bftvtVsxzoJh_cfy4gjv8DsVmLYnI5Jm68q-mQ1KFdF-Eb1OWAVvU20agcp8VJDpctkSijJhFf_xX9UwD4G19Jpsz4eRGA3gC-HBvl-s4MkKTYYPJ40vvOwvtwS_B0GTQz7wyAvTWvNqZFOkhA5OytPDJRIpzKU9WnvG0Ud-ZcMdCc_sCrED1JiHr51C2WZZOCrfH5qWqtCB7YmRYiOAyhujM0xgDF0_ijjpqIXzegFX5051L5ZRfpBjZRdOfrLm72VCnl9zaS8T5tmOkncPjSUDCwC1qJnQEPBjs6c1FRsr5emQmLAdj-3r4Cpw');
+            request.setHeader('Authorization', 'Bearer <your_access_token>');
             HttpResponse response = HTTP.send(request);
             String JSONString = response.getBody();
             Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(JSONString);
@@ -24,7 +24,7 @@ public with sharing class LinkedInCallout {
             //System.debug('Access Tocken : '+accessToken);
             System.debug('JSONString-->'+subValue);
             if(contentversionId == null){
-                //createLinkedInTextPost(subValue, linkedInTextMessage);
+                createLinkedInTextPost(subValue, linkedInTextMessage);
             } else if(contentversionId != null){
                 createLinkedInMediaPost(subValue, linkedInTextMessage, contentversionId);
             }
@@ -38,7 +38,7 @@ public with sharing class LinkedInCallout {
         HTTP http = new HTTP();
         HttpRequest request = new HttpRequest();
         request.setEndPoint(' https://api.linkedin.com/v2/ugcPosts');
-        request.setHeader('Authorization', 'Bearer AQW_ruC_jdk8qGWhP3Dv96QWT-CcBp7bP2bftvtVsxzoJh_cfy4gjv8DsVmLYnI5Jm68q-mQ1KFdF-Eb1OWAVvU20agcp8VJDpctkSijJhFf_xX9UwD4G19Jpsz4eRGA3gC-HBvl-s4MkKTYYPJ40vvOwvtwS_B0GTQz7wyAvTWvNqZFOkhA5OytPDJRIpzKU9WnvG0Ud-ZcMdCc_sCrED1JiHr51C2WZZOCrfH5qWqtCB7YmRYiOAyhujM0xgDF0_ijjpqIXzegFX5051L5ZRfpBjZRdOfrLm72VCnl9zaS8T5tmOkncPjSUDCwC1qJnQEPBjs6c1FRsr5emQmLAdj-3r4Cpw');
+        request.setHeader('Authorization', 'Bearer <your_access_token>');
         request.setMethod('POST');
         JSONGenerator gen = JSON.createGenerator(true);
         gen.writeStartObject();
@@ -93,10 +93,22 @@ public with sharing class LinkedInCallout {
     }
 
     public static void registerTheMedia(string subValue, String linkedInTextMessage, String contentversionId){
+        String fileType = '';
+        ContentVersion cv = [SELECT Id, VersionData, Title, FileType, FileExtension  
+                                 FROM ContentVersion 
+                                 WHERE Id = :contentVersionId 
+                                 LIMIT 1];
+    if (cv.fileExtension == 'jpg' || cv.fileExtension == 'jpeg' || cv.fileExtension == 'png' || 
+    cv.fileExtension == 'gif' || cv.fileExtension == 'bmp' || cv.fileExtension == 'tiff') {
+        fileType = 'feedshare-image';
+    } else if (cv.fileExtension == 'mp4' || cv.fileExtension == 'mov' || cv.fileExtension == 'avi' || 
+    cv.fileExtension == 'webm') {
+        fileType = 'feedshare-video';
+    }
         String jsonBody = '{' +
     '    "registerUploadRequest": {' +
     '        "recipes": [' +
-    '            "urn:li:digitalmediaRecipe:feedshare-image"' +
+    '            "urn:li:digitalmediaRecipe:'+fileType+'"' +
     '        ],' +
     '        "owner": "urn:li:person:' + subValue + '",' + // Insert variable x here
     '        "serviceRelationships": [' +
@@ -110,7 +122,7 @@ public with sharing class LinkedInCallout {
         HTTP http = new HTTP();
         HttpRequest request = new HttpRequest();
         request.setEndPoint('https://api.linkedin.com/v2/assets?action=registerUpload');
-        request.setHeader('Authorization', 'Bearer AQW_ruC_jdk8qGWhP3Dv96QWT-CcBp7bP2bftvtVsxzoJh_cfy4gjv8DsVmLYnI5Jm68q-mQ1KFdF-Eb1OWAVvU20agcp8VJDpctkSijJhFf_xX9UwD4G19Jpsz4eRGA3gC-HBvl-s4MkKTYYPJ40vvOwvtwS_B0GTQz7wyAvTWvNqZFOkhA5OytPDJRIpzKU9WnvG0Ud-ZcMdCc_sCrED1JiHr51C2WZZOCrfH5qWqtCB7YmRYiOAyhujM0xgDF0_ijjpqIXzegFX5051L5ZRfpBjZRdOfrLm72VCnl9zaS8T5tmOkncPjSUDCwC1qJnQEPBjs6c1FRsr5emQmLAdj-3r4Cpw');
+        request.setHeader('Authorization', 'Bearer <your_access_token>');
         request.setMethod('POST');
         request.setBody(jsonBody);
         HttpResponse response = http.send(request);
@@ -132,13 +144,13 @@ public with sharing class LinkedInCallout {
         // Debug the extracted values
         System.debug('Asset: ' + asset);
         System.debug('Upload URL: ' + uploadUrl);
-        uploadTheMedia(uploadUrl, contentVersionId, asset, subValue);
+        uploadTheMedia(uploadUrl, contentVersionId, asset, subValue, linkedInTextMessage, fileType);
     }
 
-    private static void uploadTheMedia(string uploadUrl, String contentVersionId, String asset, String subValue){
+    private static void uploadTheMedia(string uploadUrl, String contentVersionId, String asset, String subValue, string linkedInTextMessage, String fileType){
         try {
             // Query the file content and metadata
-            ContentVersion cv = [SELECT Id, VersionData, Title, FileType 
+            ContentVersion cv = [SELECT Id, VersionData, Title, FileType, FileExtension  
                                  FROM ContentVersion 
                                  WHERE Id = :contentVersionId 
                                  LIMIT 1];
@@ -148,7 +160,7 @@ public with sharing class LinkedInCallout {
             request.setEndpoint(uploadUrl);
             request.setMethod('POST');
             request.setHeader('Content-Type', 'application/octet-stream');
-            request.setHeader('Authorization', 'Bearer AQW_ruC_jdk8qGWhP3Dv96QWT-CcBp7bP2bftvtVsxzoJh_cfy4gjv8DsVmLYnI5Jm68q-mQ1KFdF-Eb1OWAVvU20agcp8VJDpctkSijJhFf_xX9UwD4G19Jpsz4eRGA3gC-HBvl-s4MkKTYYPJ40vvOwvtwS_B0GTQz7wyAvTWvNqZFOkhA5OytPDJRIpzKU9WnvG0Ud-ZcMdCc_sCrED1JiHr51C2WZZOCrfH5qWqtCB7YmRYiOAyhujM0xgDF0_ijjpqIXzegFX5051L5ZRfpBjZRdOfrLm72VCnl9zaS8T5tmOkncPjSUDCwC1qJnQEPBjs6c1FRsr5emQmLAdj-3r4Cpw');
+            request.setHeader('Authorization', 'Bearer <your_access_token>');
             request.setHeader('Authorization', 'Bearer redacted');  // Use appropriate content type if known
             // Set the binary body
             request.setBodyAsBlob(cv.VersionData);
@@ -162,22 +174,28 @@ public with sharing class LinkedInCallout {
             } else {
                 System.debug('Failed to send file. Status: ' + res.getStatusCode() + ', Response: ' + res.getBody());
             }
-            createTheMedia(asset, subValue);
+            createTheMedia(asset, subValue, linkedInTextMessage, fileType);
         } catch (Exception e) {
             System.debug('Exception while sending file: ' + e.getMessage());
         }
     }
 
-    private static void createTheMedia(String asset, String subValue){
+    private static void createTheMedia(String asset, String subValue, String linkedInTextMessage, String fileType){
+        String mediaCategary = '';
+        if(fileType == 'feedshare-image'){
+            mediaCategary = 'IMAGE';
+        } else if(fileType == 'feedshare-video'){
+            mediaCategary = 'VIDEO';
+        }
         String jsonBody = '{'+
 		'    "author": "urn:li:person:' + subValue + '",'+
 		'    "lifecycleState": "PUBLISHED",'+
 		'    "specificContent": {'+
 		'        "com.linkedin.ugc.ShareContent": {'+
 		'            "shareCommentary": {'+
-		'                "text": "Feeling inspired after meeting so many talented individuals at this year"'+
+		'                "text": "'+linkedInTextMessage+'"'+
 		'            },'+
-		'            "shareMediaCategory": "IMAGE",'+
+		'            "shareMediaCategory": "'+mediaCategary+'",'+
 		'            "media": ['+
 		'                {'+
 		'                    "status": "READY",'+
@@ -199,7 +217,7 @@ public with sharing class LinkedInCallout {
         HTTP http = new HTTP();
         HttpRequest request = new HttpRequest();
         request.setEndPoint('https://api.linkedin.com/v2/ugcPosts');
-        request.setHeader('Authorization', 'Bearer AQW_ruC_jdk8qGWhP3Dv96QWT-CcBp7bP2bftvtVsxzoJh_cfy4gjv8DsVmLYnI5Jm68q-mQ1KFdF-Eb1OWAVvU20agcp8VJDpctkSijJhFf_xX9UwD4G19Jpsz4eRGA3gC-HBvl-s4MkKTYYPJ40vvOwvtwS_B0GTQz7wyAvTWvNqZFOkhA5OytPDJRIpzKU9WnvG0Ud-ZcMdCc_sCrED1JiHr51C2WZZOCrfH5qWqtCB7YmRYiOAyhujM0xgDF0_ijjpqIXzegFX5051L5ZRfpBjZRdOfrLm72VCnl9zaS8T5tmOkncPjSUDCwC1qJnQEPBjs6c1FRsr5emQmLAdj-3r4Cpw');
+        request.setHeader('Authorization', 'Bearer <your_access_token>');
         request.setMethod('POST');
         request.setBody(jsonBody);
         HttpResponse response = http.send(request);

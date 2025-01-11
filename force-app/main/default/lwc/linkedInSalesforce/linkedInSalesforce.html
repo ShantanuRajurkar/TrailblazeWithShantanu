@@ -2,7 +2,7 @@
   @description       : 
   @author            : ChangeMeIn@UserSettingsUnder.SFDoc
   @group             : 
-  @last modified on  : 01-05-2025
+  @last modified on  : 01-11-2025
   @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 -->
 <template>
@@ -13,7 +13,7 @@
                 <lightning-button label="Share Image/ Video File" onclick={handleClick}></lightning-button>
             </div>    
         </div>
-        <div if:true={isShowDocOptions}>
+        <div if:true={isShowDocOptions} class="slds-var-p-around_small">
             <lightning-combobox label="Select Document" value={selectedValue} options={documentOptions} onchange={handleCombo}></lightning-combobox>
         </div>
         <div class="slds-var-p-around_small">
