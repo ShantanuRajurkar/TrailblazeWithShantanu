@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 01-13-2025
+ * @last modified on  : 01-16-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 trigger TCSQueNo2 on Task (after update) {
@@ -27,7 +27,7 @@ trigger TCSQueNo2 on Task (after update) {
         boolean allCompleted = false;
         if(!oppIdsToTask.get(opp.Id).Contains('Completed')){
             allCompleted = false;
-        }else if(!oppIdsToTask.get(opp.Id).Contains('In Progress') && !oppIdsToTask.get(opp.Id).Contains('CWaiting on someone elseompleted') && !oppIdsToTask.get(opp.Id).Contains('Not Started') && !oppIdsToTask.get(opp.Id).Contains('Deferred')){
+        }else if(!oppIdsToTask.get(opp.Id).Contains('In Progress') && !oppIdsToTask.get(opp.Id).Contains('Waiting on someone else') && !oppIdsToTask.get(opp.Id).Contains('Not Started') && !oppIdsToTask.get(opp.Id).Contains('Deferred')){
             allCompleted = true;
         }
         if (allCompleted == true){
