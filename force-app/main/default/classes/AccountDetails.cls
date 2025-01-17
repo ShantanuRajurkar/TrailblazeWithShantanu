@@ -1,6 +1,6 @@
 public with sharing class AccountDetails {
     @AuraEnabled
-    public static string updateAccountRecord(string recordId, string newPhone) {
+    public static string updateAccountRecords(string recordId, string newPhone) {
         Account acc = new Account(Id=recordId, Phone=newPhone);
         try{
             update acc;
@@ -20,7 +20,7 @@ public with sharing class AccountDetails {
     }
 
     @AuraEnabled(cacheable=true)
-    public static list<Account> getAccountRecordsForRowAndHeraderActionOnLightningDataTable(){
+    public static list<Account> getAccountRecordsForRowAndHeraderActionOnLightningDataTables(){
         try {
             return [SELECT Id, Name, Rating, Phone, Industry, AccountNumber, Type FROM Account WITH SECURITY_ENFORCED LIMIT 10];  
        } catch (Exception e) {
