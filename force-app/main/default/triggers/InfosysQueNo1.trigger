@@ -30,7 +30,7 @@ trigger InfosysQueNo1 on Opportunity (after insert, after update, after delete, 
         }
     }
      
-    // Step 2: Aggregate query to calculate the total of TotalAmount on Invoice
+    // Step 2: Aggregate query to calculate the total of TotalAmount on Opportunity Amount
     Map<Id, Decimal> accountOppTotals = new Map<Id, Decimal>();
     for (AggregateResult ar : [
         SELECT AccountId, SUM(Amount) Amount
